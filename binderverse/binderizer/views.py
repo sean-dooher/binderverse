@@ -9,7 +9,7 @@ def binderize(request):
     try:
         doi = request.GET['doi']
     except KeyError:
-        return HttpResponse("Missing one or more of the required attributes: doi", status=400)
+        return render(request, 'index.html')
 
     binder_setup = BinderSetup.objects.filter(doi=doi)
 
