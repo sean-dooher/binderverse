@@ -30,6 +30,8 @@ ALLOWED_HOSTS = ['localhost', '0.0.0.0', '[::1]', '127.0.0.1']
 
 # Application definition
 
+DATAVERSE_SERVER = 'http://js-170-58.jetstream-cloud.org'
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
