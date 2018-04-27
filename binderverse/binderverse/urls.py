@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from binderizer.views import binderize
+from binderizer.views import binderize, done
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', binderize)
+    path('', binderize),
+    path('done', done)
 ]

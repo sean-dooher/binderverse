@@ -1,4 +1,4 @@
-from .utils import download_file, get_files_from_doi
+from .utils import download_dataset
 from .models import BinderSetup
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.files.storage import default_storage
@@ -15,16 +15,16 @@ def binderize(request):
 
     if not binder_setup.exists():
         # grab the file_ids
-        file_ids = get_files_from_doi(doi)
-
-        # download each file to the folder
-        for id in file_ids:
-            download_file(id, )
-
+        download_folder = download_dataset(doi)
         # create a binder setup instance
+        binder_setup = BinderSetup.objects.create(doi=doi, version="???", folder=download_folder)
 
     else:
         binder_setup = binder_setup.first()
 
     # redirect to binder link
-    return HttpResponseRedirect(binder_setup)
+    return HttpResponseRedirect(binder_setup.get_binder_link())
+
+
+def done(request):
+    return HttpResponse("=)")
