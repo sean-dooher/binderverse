@@ -5,6 +5,19 @@ import os
 import hashlib
 from django.conf import settings
 
+def get_version_number(DOI):
+    """Returns the version number of the dataset as a string"""
+
+    url = settings.DATAVERSE_SERVER + "api/datasets/export?exporter=dataverse_json&persistentId=" + str(DOI)
+    try:
+        contents = urllib.request.urlopen(url).read()
+        dataset = json.loads(contents)
+        version_number = str(dataset["datasetVersion"]["versionNumber"]) + "." + str(dataset["datasetVersion"]["versionMinorNumber"])
+    except Exception as e:
+        print(f"Error: {e}")
+
+    return version_number
+
 def download_file(directory_name, name, fileId):
     """Save file identified by FILEID to DIRECTORY_NAME
     directory_name: string"""
